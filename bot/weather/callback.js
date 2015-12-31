@@ -22,6 +22,7 @@ module.exports = function(callback, slackData) {
           };
 
           var wTitle = '';
+          console.log('========', wObj);
           for (var i = 0, b = wObj.weather.length; i < b; i++) {
             wTitle = wTitle + wObj.weather[i].main + ' (' + wObj.weather[i].description + ')' + ((i + 1) === wObj.weather.length ? '' : ', ');
           }
