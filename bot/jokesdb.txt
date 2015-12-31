@@ -1,21 +1,4 @@
-var mongodb = require('mongodb');
-var mongoC = mongodb.MongoClient;
-
-module.exports = function(callback, slackData) {
-
-  // Mongo db data - Start
-  var dbName = 'heroku_mzb1clx9',
-      dbUser = 'getJoke',
-      dbUserPassword = 'Testas123',
-      dbUrl = 'ds037005.mongolab.com:37005';
-  // Mongo db data - End
-
-  mongoC.connect('mongodb://' + dbUser + ':' + dbUserPassword + '@' + dbUrl + '/' + dbName, function (err, db) {
-      var collection = db.collection('jokes');
-      var randomJokeId = Math.floor((Math.random() * 371) + 1);
-
-      //
-      var jokesdb = [
+[
   {
     "id": 0,
     "joke": "Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.\n",
@@ -1871,21 +1854,4 @@ module.exports = function(callback, slackData) {
     "joke": "Women brush their hair before bed.",
     "dateLastRead": "2015-12-31T03:36:21.741Z"
   }
-];
-
-      collection.insert(jokesdb, {w:1}, function(err, result) {
-        console.log('Result', result);
-
-        db.close();
-      });
-      //
-      /*
-      collection.find({ id: randomJokeId }).limit(1).toArray(function (err, result) {
-        
-        callback('*' + result[0].joke + '*');
-
-        db.close();
-      });
-      */
-  });
-};
+]
