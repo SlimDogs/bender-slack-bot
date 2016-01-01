@@ -21,7 +21,7 @@ module.exports = function (callback, slackData) {
   lvivDate.setTimezone('Europe/Kiev');
 
   function normalizeNumber(digit) {
-    if (digit.length === 1) {
+    if (digit < 10) {
       return '0' + digit;
     }
     else return digit;
