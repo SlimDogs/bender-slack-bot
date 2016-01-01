@@ -25,12 +25,12 @@ module.exports = function (callback, slackData) {
       "fields": [
         {
           "title": 'London (GB)',
-          "value": londonDate.getHours() + ':' + londonDate.getMinutes() + ' ' + londonDate.getDay() + ' ' + monthNames[londonDate.getMonth()] + ' ' + londonDate.getYear(),
+          "value": londonDate.getDay() + ' ' + monthNames[londonDate.getMonth()] + ' ' + londonDate.getFullYear() + ', ' + londonDate.getHours() + ':' + londonDate.getMinutes(),
           "short": true
         },
         {
           "title": 'Lviv (UKR)',
-          "value": lvivDate.getHours() + ':' + lvivDate.getMinutes() + ' ' + lvivDate.getDay() + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getYear(),
+          "value": lvivDate.getDay() + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + lvivDate.getHours() + ':' + lvivDate.getMinutes(),
           "short": true
         }
       ]
