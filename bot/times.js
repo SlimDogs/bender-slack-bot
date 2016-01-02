@@ -30,7 +30,7 @@ module.exports = function() {
     var d = new Date(),
       minutes = d.getMinutes(),
       hours = d.getHours(),
-      days = d.getDays();
+      days = d.getDay();
 
     //if (days < 6) { // No posting on Weekends
 
