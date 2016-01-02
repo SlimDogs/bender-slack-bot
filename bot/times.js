@@ -32,7 +32,7 @@ module.exports = function() {
       hours = d.getHours(),
       days = d.getDays();
 
-    if (days < 6) { // No posting on Weekends
+    //if (days < 6) { // No posting on Weekends
 
       // Morning stand ups announce
       if (hours === 8 && minutes === 55) {
@@ -49,9 +49,9 @@ module.exports = function() {
 
       //
       else if (hours === 5 && minutes === 5) {
-        postMsg('Before starting your travels home have a check on current tube status. <Command: *!tfl*>');
+        postMsg('Before starting your travel home have a look on current tube status. <Command: *!tfl*>');
       }
-    }
+    //}
 
   }, 60000);
 };
