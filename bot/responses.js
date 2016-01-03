@@ -48,11 +48,16 @@ module.exports = function (req, res, next) {
       };
     }
     else {
-      callbackFunction = function(attachmentObjectArray) {
-
-        return res.status(200).json({
+      callbackFunction = function(attachmentObjectArray, textString) {
+        var responseObj = {
           attachments: attachmentObjectArray
-        });
+        };
+
+        if (textString != null) {
+          responseObj.text = textString;
+        }
+
+        return res.status(200).json(responseObj);
 
       };
     }
