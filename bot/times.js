@@ -33,9 +33,10 @@ module.exports = function() {
       days = d.getDay();
 
     //if (days < 6) { // No posting on Weekends
+      console.log('Hours', hours, 'minutes', minutes);
 
       // Morning stand ups announce
-      if (hours === 8 && minutes === 55) {
+      if (hours === 11 && minutes === 15) {
         postMsg('*Team 1* it\'s almost stand up time, have a good one!');
       }
       else if (hours === 9 && minutes === 15) {
