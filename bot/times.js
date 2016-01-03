@@ -17,9 +17,9 @@ module.exports = function() {
     req.on('error', function (e) {
         console.log('Error while posting message: ' + e.message);
     });
-
+    console.log('Posting!');
     req.write(JSON.stringify({
-        "channel": channel || "#tests",
+        "channel": (channel || "#tests"),
         "username": "Bender",
         "text": message
     }));
@@ -36,7 +36,7 @@ module.exports = function() {
       console.log('Hours', hours, 'minutes', minutes);
 
       // Morning stand ups announce
-      if (hours === 11 && minutes === 15) {
+      if (hours === 11 && minutes === 25) {
         postMsg('*Team 1* it\'s almost stand up time, have a good one!');
       }
       else if (hours === 9 && minutes === 15) {
