@@ -32,7 +32,7 @@ module.exports = function (req, res, next) {
       //'commands': commandsModule
   };
 
-  var attachments = ['chucknorris', 'weather', 'tfl', 'time', 'commands'];
+  var attachments = ['joke', 'chucknorris', 'weather', 'tfl', 'time', 'commands'];
 
   // avoid infinite loop
   if (slackData.userName !== 'slackbot') {

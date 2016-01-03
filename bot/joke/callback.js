@@ -15,8 +15,12 @@ module.exports = function(callback, slackData) {
       var randomJokeId = Math.floor((Math.random() * 371) + 1);
 
       collection.find({ id: randomJokeId }).limit(1).toArray(function (err, result) {
-        
-        callback('*' + result[0].joke + '*');
+
+        callback([{
+            "color": GLOBAL.hexGenerator(),
+            "title": result[0].joke,
+            "image_url": 'http://benderthebot.herokuapp.com/icons/joke.png'
+        }]);
 
         db.close();
       });

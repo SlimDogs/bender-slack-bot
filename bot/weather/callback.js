@@ -29,7 +29,7 @@ module.exports = function(callback, slackData) {
           var windSpeed = wObj.name === 'Lviv' ? (wObj.wind.speed + 'm/s') : ((Math.round(wObj.wind.speed * 3600 / 1610.3*1000)/1000) + 'mPh');
 
           callback([{
-              "color": "#28b0b8",
+              "color": GLOBAL.hexGenerator(),
               "title": wTitle,
               "fields": [
                 {
@@ -54,7 +54,7 @@ module.exports = function(callback, slackData) {
                 }      
               ],
               "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
-          }], 'Weather in ' + wObj.name);
+          }], 'Weather in *' + wObj.name + '* :');
       });
   });
 };

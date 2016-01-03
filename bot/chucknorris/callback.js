@@ -13,7 +13,7 @@ module.exports = function(callback, slackData) {
       res.on('end', function() {
           var jokeObj = JSON.parse(body);
           callback([{
-              "color": "#28b0b8",
+              "color": GLOBAL.hexGenerator(),
               "title": jokeObj.value.joke,
               "image_url": 'http://benderthebot.herokuapp.com/icons/chucknorris.png'
           }]);

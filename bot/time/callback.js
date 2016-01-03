@@ -28,7 +28,7 @@ module.exports = function (callback, slackData) {
   };
 
   callback([{
-      "color": "#ff4800",
+      "color": GLOBAL.hexGenerator(),
       "fields": [
         {
           "title": 'London (GB)',
