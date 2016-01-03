@@ -4,7 +4,7 @@ var chucknorrisModule = require('./chucknorris/callback.js');
 var weatherModule = require('./weather/callback.js');
 var tflModule = require('./tfl/callback.js');
 var timeModule = require('./time/callback.js');
-//var commandsModule = require('./commands/callback.js');
+var commandsModule = require('./commands/callback.js');
 
 module.exports = function (req, res, next) {
   var slackData = {
@@ -29,7 +29,7 @@ module.exports = function (req, res, next) {
       'bender': 'Don\'t mention my name without serious reason! :P',
       'bot': 'Don\'t mention my name without serious reason! :P',
       // Help
-      //'commands': commandsModule
+      'commands': commandsModule
   };
 
   var attachments = ['joke', 'chucknorris', 'weather', 'tfl', 'time', 'commands'];
