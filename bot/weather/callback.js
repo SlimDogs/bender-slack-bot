@@ -30,7 +30,7 @@ module.exports = function(callback, slackData) {
 
           callback([{
               "color": "#28b0b8",
-              "title": 'Weather in ' + wObj.name +': ' + wTitle,
+              "title": wTitle,
               "fields": [
                 {
                     "title": "Temperature",
@@ -54,7 +54,7 @@ module.exports = function(callback, slackData) {
                 }      
               ],
               "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
-          }]);
+          }], 'Weather in ' + wObj.name);
       });
   });
 };

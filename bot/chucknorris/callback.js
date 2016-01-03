@@ -14,9 +14,9 @@ module.exports = function(callback, slackData) {
           var jokeObj = JSON.parse(body);
           callback([{
               "color": "#28b0b8",
-              //"title": jokeObj.value.joke,
+              "title": jokeObj.value.joke,
               "image_url": 'http://benderthebot.herokuapp.com/icons/chucknorris.png'
-          }], jokeObj.value.joke);
+          }]);
       });
   });
 };

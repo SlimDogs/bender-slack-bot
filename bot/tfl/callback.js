@@ -35,10 +35,9 @@ module.exports = function(callback, slackData) {
 
         callback([{
             "color": badService.length === 0 ? "#08b100" : "#b12500",
-            //"title": 'Current London tube status',
             "fields": badService.concat(goodService),
             "image_url": 'https://tfl.gov.uk/cdn/static/cms/images/logos/tube-partner.png',
-        }], 'Current London tube status');
+        }], 'Current *London tube* status:');
     });
   });
 }
