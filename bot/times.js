@@ -2,7 +2,7 @@ var https = require('https');
 
 module.exports = function() {
 
-  function postMsg(message, channel) {
+  function postMsg(message) {
     var req = https.request({
         hostname: 'hooks.slack.com' ,
         path: '/services/T0GM8NHU0/B0H9881K8/TE8PaC19TxajzwIhDSun1ge7',
@@ -19,7 +19,7 @@ module.exports = function() {
     });
 
     req.write(JSON.stringify({
-        "channel": (channel || "#tests"),
+        "channel": "#tests",
         "username": "Bender",
         "text": message
     }));
@@ -36,7 +36,7 @@ module.exports = function() {
       console.log('Hours', hours, 'minutes', minutes);
 
       // Morning stand ups announce
-      if (hours === 11 && minutes === 35) {
+      if (hours === 11 && minutes === 45) {
         postMsg('*Team 1* it\'s almost stand up time, have a good one!');
       }
       else if (hours === 9 && minutes === 15) {
