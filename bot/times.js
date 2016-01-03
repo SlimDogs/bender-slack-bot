@@ -36,7 +36,7 @@ module.exports = function() {
       console.log('Hours', hours, 'minutes', minutes);
 
       // Morning stand ups announce
-      if (hours === 11 && minutes === 45) {
+      if (hours === 11 && minutes === 50) {
         postMsg('*Team 1* it\'s almost stand up time, have a good one!');
       }
       else if (hours === 9 && minutes === 15) {
