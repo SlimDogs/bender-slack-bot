@@ -40,6 +40,7 @@ module.exports = function (callback, slackData) {
           "value": normalizeNumber(lvivDate.getDate()) + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + normalizeNumber(lvivDate.getHours()) + ':' + normalizeNumber(lvivDate.getMinutes()),
           "short": true
         }
-      ]
+      ],
+      "image_url": 'http://benderthebot.herokuapp.com/icons/time.png'
   }]);
 };

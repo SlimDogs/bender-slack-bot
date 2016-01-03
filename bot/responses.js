@@ -1,8 +1,10 @@
 // Bot modules
 var jokeModule = require('./joke/callback.js');
+var chucknorrisModule = require('./chucknorris/callback.js');
 var weatherModule = require('./weather/callback.js');
 var tflModule = require('./tfl/callback.js');
 var timeModule = require('./time/callback.js');
+var commandsModule = require('./commands/callback.js');
 
 module.exports = function (req, res, next) {
   var slackData = {
@@ -13,18 +15,24 @@ module.exports = function (req, res, next) {
 
   // All responses
   var responses = {
+      // Fun
       'joke': jokeModule,
+      'chucknorris': chucknorrisModule,
+      // Useful
       'time': timeModule,
+      'date': timeModule,
       'weather': weatherModule,
       'tfl': tflModule,
+      // Humanize
       'hello': 'Hey there, dear *' + slackData.userName + '*!',
       'bug': 'Kill the bugs! Kill them *' + slackData.userName + '*!',
       'bender': 'Don\'t mention my name without serious reason! :P',
       'bot': 'Don\'t mention my name without serious reason! :P',
-      'commands': '-- *This command is under construction* --'
+      // Help
+      'commands': commandsModule
   };
 
-  var attachments = ['weather', 'tfl', 'time'];
+  var attachments = ['weather', 'tfl', 'time', 'commands'];
 
   // avoid infinite loop
   if (slackData.userName !== 'slackbot') {
