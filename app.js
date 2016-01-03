@@ -20,6 +20,8 @@ app.use(function (err, req, res, next) {
   res.status(400).send(err.message);
 });
 
+app.use(express.static('icons'));
+
 app.listen(port, function () {
   console.log('Bender bot is running & listening port: ' + port);
 });

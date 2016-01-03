@@ -12,7 +12,7 @@ module.exports = function(callback, slackData) {
       });
       res.on('end', function() {
           var jokeObj = JSON.parse(body);
-          console.log('Norris joke received! ', jokeObj, jokeObj.value.joke);
+          console.log('Norris joke received! ', jokeObj.value.joke);
           callback([{
               "color": "#28b0b8",
               "title": jokeObj.value.joke,
