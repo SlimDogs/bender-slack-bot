@@ -19,7 +19,7 @@ module.exports = function() {
     });
 
     req.write(JSON.stringify({
-        "channel": "#tests",
+        "channel": "#random",
         "username": "Bender",
         "text": message
     }));
@@ -32,11 +32,9 @@ module.exports = function() {
       hours = d.getHours(),
       days = d.getDay();
 
-    //if (days < 6) { // No posting on Weekends
-      console.log('Hours', hours, 'minutes', minutes);
-
+    if (days < 6) { // No posting on Weekends
       // Morning stand ups announce
-      if (hours === 11 && minutes === 58) {
+      if (hours === 8 && minutes === 55) {
         postMsg('*Team 1* it\'s almost stand up time, have a good one!');
       }
       else if (hours === 9 && minutes === 15) {
@@ -45,14 +43,14 @@ module.exports = function() {
 
       // Lunch time
       else if (hours === 12 && minutes === 0) {
-        postMsg('Lunch time! Enjoy it :-)');
+        postMsg('*Lunch time*! Enjoy it :-)');
       }
 
       //
       else if (hours === 5 && minutes === 5) {
         postMsg('Before starting your travel home have a look on current tube status. <Command: *!tfl*>');
       }
-    //}
+    }
 
   }, 60000);
 };
