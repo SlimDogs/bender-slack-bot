@@ -20,7 +20,9 @@ module.exports = function (callback, slackData) {
   var lvivDate = new time.Date();
   lvivDate.setTimezone('Europe/Kiev');
 
-  function normalizeNumber(digit) {
+  function normalizeNumber(digit, replaceZero) {
+    if (replaceZero != null && digit === 0) digit = replaceZero;
+
     if (digit < 10) {
       return '0' + digit;
     }
@@ -32,12 +34,12 @@ module.exports = function (callback, slackData) {
       "fields": [
         {
           "title": 'London (GB)',
-          "value": normalizeNumber(londonDate.getDay()) + ' ' + monthNames[londonDate.getMonth()] + ' ' + londonDate.getFullYear() + ', ' + normalizeNumber(londonDate.getHours()) + ':' + normalizeNumber(londonDate.getMinutes()),
+          "value": normalizeNumber(londonDate.getDay(), 7) + ' ' + monthNames[londonDate.getMonth()] + ' ' + londonDate.getFullYear() + ', ' + normalizeNumber(londonDate.getHours()) + ':' + normalizeNumber(londonDate.getMinutes()),
           "short": true
         },
         {
           "title": 'Lviv (UKR)',
-          "value": normalizeNumber(lvivDate.getDay()) + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + normalizeNumber(lvivDate.getHours()) + ':' + normalizeNumber(lvivDate.getMinutes()),
+          "value": normalizeNumber(lvivDate.getDay(), 7) + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + normalizeNumber(lvivDate.getHours()) + ':' + normalizeNumber(lvivDate.getMinutes()),
           "short": true
         }
       ]
