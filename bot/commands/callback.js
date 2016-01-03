@@ -6,15 +6,15 @@ module.exports = function(callback, slackData) {
       commands: [
         {
           command: '!date, !time',
-          description: 'Date/time information (London/Lviv)'
+          description: 'Date/time information'
         },
         {
-          command: '!weather (Lviv)',
-          description: 'Current weather conditions (London/Lviv)'
+          command: '!weather <Lviv>',
+          description: 'Current weather conditions'
         },
         {
           command: '!tfl',
-          description: 'Current tube lines status (London)'
+          description: 'Current tube lines status'
         },
         {
           command: '!commands',
@@ -52,7 +52,7 @@ module.exports = function(callback, slackData) {
 
     response.push({
         "color": GLOBAL.hexGenerator(),
-        "title": commands[i].title,
+        "pretext": commands[i].title + ':',
         "fields": fields
     });
   }
