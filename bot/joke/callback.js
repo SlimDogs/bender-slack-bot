@@ -19,7 +19,7 @@ module.exports = function(callback, slackData) {
         callback([{
             "color": GLOBAL.hexGenerator(),
             "title": result[0].joke,
-            "image_url": 'http://benderthebot.herokuapp.com/icons/joke.png'
+            "image_url": 'http://benderthebot.herokuapp.com/icons/jokes/' + Math.floor(Math.random()*9+1) + '.png'
         }]);
 
         db.close();
