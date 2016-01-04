@@ -1,9 +1,13 @@
 var http = require('http');
 
 module.exports = function(callback, slackData) {
+
+  var cityName = slackData.messageText.split(' ')[1];
+  if (cityName == null) cityName = 'london';
+
   http.get({
       host: 'api.openweathermap.org',
-      path: '/data/2.5/weather?q=' + (slackData.messageText.indexOf('lviv') >= 0 ? 'lviv' : 'london') + '&units=metric&appid=2de143494c0b295cca9337e1e96b00e0'
+      path: '/data/2.5/weather?q=' + cityName + '&units=metric&appid=2de143494c0b295cca9337e1e96b00e0'
   }, function(res) {
       // Continuously update stream with data
       var body = '';
