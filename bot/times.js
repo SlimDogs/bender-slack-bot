@@ -37,7 +37,7 @@ module.exports = function() {
       if (hours === 8 && minutes === 55) {
         postMsg('*Team 1* it\'s almost stand up time, have a good one!');
       }
-      else if (hours === 9 && minutes === 15) {
+      else if (hours === 9 && minutes === 10) {
         postMsg('*Team 2* it\s your turn for a stand up!');
       }
 
@@ -47,7 +47,7 @@ module.exports = function() {
       }
 
       //
-      else if (hours === 5 && minutes === 5) {
+      else if (hours === 17 && minutes === 55) {
         postMsg('Before starting your travel home have a look on current tube status. <Command: *!tfl*>');
       }
     }
