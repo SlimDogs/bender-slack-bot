@@ -26,8 +26,8 @@ module.exports = function (req, res, next) {
       // Humanize
       //'hello': 'Hey there, dear *' + slackData.userName + '*!',
       //'bug': 'Kill the bugs! Kill them *' + slackData.userName + '*!',
-      'bender': 'Don\'t mention my name without serious reason! :P',
-      'bot': 'Don\'t mention my name without serious reason! :P',
+      'bender': 'Bite my shiny metal ass!',
+      'bot': 'Bite my shiny metal ass!',
       // Help
       'commands': commandsModule
   };
