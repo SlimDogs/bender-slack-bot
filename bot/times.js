@@ -41,6 +41,7 @@ module.exports = function() {
         postMsg('*Team 2* it\s your turn for a stand up!');
       }
 
+      /*
       // Lunch time
       else if (hours === 12 && minutes === 0) {
         postMsg('*Lunch time*! Enjoy it :-)');
@@ -50,6 +51,7 @@ module.exports = function() {
       else if (hours === 17 && minutes === 55) {
         postMsg('Before starting your travel home have a look on current tube status. <Command: *!tfl*>');
       }
+      */
     }
 
   }, 60000);

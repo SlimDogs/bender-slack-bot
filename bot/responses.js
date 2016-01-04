@@ -24,8 +24,8 @@ module.exports = function (req, res, next) {
       'weather': weatherModule,
       'tfl': tflModule,
       // Humanize
-      'hello': 'Hey there, dear *' + slackData.userName + '*!',
-      'bug': 'Kill the bugs! Kill them *' + slackData.userName + '*!',
+      //'hello': 'Hey there, dear *' + slackData.userName + '*!',
+      //'bug': 'Kill the bugs! Kill them *' + slackData.userName + '*!',
       'bender': 'Don\'t mention my name without serious reason! :P',
       'bot': 'Don\'t mention my name without serious reason! :P',
       // Help
