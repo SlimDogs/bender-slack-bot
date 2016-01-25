@@ -17,48 +17,52 @@ module.exports = function(callback, slackData) {
       res.on('end', function() {
           var wObj = JSON.parse(body);
 
-          function degToCompass(num) { 
-            while (num < 0) num += 360;
-            while (num >= 360) num -= 360; 
-            var val = Math.round((num -11.25 ) / 22.5),
-                arr = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
-            return arr[Math.abs(val)];
-          };
+          if (wObj.weather) {
 
-          var wTitle = '';
-          for (var i = 0, b = wObj.weather.length; i < b; i++) {
-            wTitle = wTitle + wObj.weather[i].main + ' (' + wObj.weather[i].description + ')' + ((i + 1) === wObj.weather.length ? '' : ', ');
-          }
+            function degToCompass(num) { 
+              while (num < 0) num += 360;
+              while (num >= 360) num -= 360; 
+              var val = Math.round((num -11.25 ) / 22.5),
+                  arr = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+              return arr[Math.abs(val)];
+            };
 
-          var windSpeed = wObj.name === 'Lviv' ? (wObj.wind.speed + 'm/s') : ((Math.round(wObj.wind.speed * 3600 / 1610.3*1000)/1000) + 'mPh');
+            var wTitle = '';
+            for (var i = 0, b = wObj.weather.length; i < b; i++) {
+              wTitle = wTitle + wObj.weather[i].main + ' (' + wObj.weather[i].description + ')' + ((i + 1) === wObj.weather.length ? '' : ', ');
+            }
 
-          callback([{
-              "color": GLOBAL.hexGenerator(),
-              "title": wTitle,
-              "fields": [
-                {
-                    "title": "Temperature",
-                    "value": wObj.main.temp + '°C',
-                    "short": true
-                },
-                {
-                    "title": "Wind",
-                    "value": windSpeed + ' (' + degToCompass(wObj.wind.deg) + ')',
-                    "short": true
-                },
-                {
-                    "title": "Humidity",
-                    "value": wObj.main.humidity + '%',
-                    "short": true
-                },
-                {
-                    "title": "Pressure",
-                    "value": wObj.main.pressure + 'hPa',
-                    "short": true
-                }      
-              ],
-              "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
-          }], 'Weather in *' + wObj.name + '* :');
+            var windSpeed = wObj.name === 'Lviv' ? (wObj.wind.speed + 'm/s') : ((Math.round(wObj.wind.speed * 3600 / 1610.3*1000)/1000) + 'mPh');
+
+            callback([{
+                "color": GLOBAL.hexGenerator(),
+                "title": wTitle,
+                "fields": [
+                  {
+                      "title": "Temperature",
+                      "value": wObj.main.temp + '°C',
+                      "short": true
+                  },
+                  {
+                      "title": "Wind",
+                      "value": windSpeed + ' (' + degToCompass(wObj.wind.deg) + ')',
+                      "short": true
+                  },
+                  {
+                      "title": "Humidity",
+                      "value": wObj.main.humidity + '%',
+                      "short": true
+                  },
+                  {
+                      "title": "Pressure",
+                      "value": wObj.main.pressure + 'hPa',
+                      "short": true
+                  }      
+                ],
+                "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
+            }], 'Weather in *' + wObj.name + '* :');
+
+        }
       });
   });
 };
