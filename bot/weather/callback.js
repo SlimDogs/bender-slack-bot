@@ -2,7 +2,10 @@ var http = require('http');
 
 module.exports = function(callback, slackData) {
 
-  var cityName = slackData.messageText.split(' ').splice(0,1).join('+');
+  var cityName = slackData.messageText.split(' ');
+  cityName.splice(0,1);
+  cityName = cityName,join('+');
+
   if (cityName == null) cityName = 'london';
 
   var openWeatherApiToken = '89b5367178e25ae61a711df8069000ff';
