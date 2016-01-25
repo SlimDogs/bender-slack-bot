@@ -4,7 +4,7 @@ module.exports = function(callback, slackData) {
 
   var cityName = slackData.messageText.split(' ');
   cityName.splice(0,1);
-  cityName = cityName,join('+');
+  cityName = cityName.join('+');
 
   if (cityName == null) cityName = 'london';
 
