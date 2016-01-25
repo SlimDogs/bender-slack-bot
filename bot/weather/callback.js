@@ -5,9 +5,11 @@ module.exports = function(callback, slackData) {
   var cityName = slackData.messageText.split(' ').splice(0,1).join('+');
   if (cityName == null) cityName = 'london';
 
+  var openWeatherApiToken = '89b5367178e25ae61a711df8069000ff';
+
   http.get({
       host: 'api.openweathermap.org',
-      path: '/data/2.5/weather?q=' + cityName + '&units=metric&appid=2de143494c0b295cca9337e1e96b00e0'
+      path: '/data/2.5/weather?q=' + cityName + '&units=metric&appid=' + openWeatherApiToken
   }, function(res) {
       // Continuously update stream with data
       var body = '';
