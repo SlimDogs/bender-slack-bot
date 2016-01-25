@@ -3,7 +3,7 @@ var http = require('http');
 module.exports = function(callback, slackData) {
 
   var cityName = slackData.messageText.replace('!weather ', '').replace(/\s/g, '+');
-  if (cityName == null || cityName == '') cityName = 'london';
+  if (cityName == null || cityName == '' || cityName = '!weather') cityName = 'london';
 
   var openWeatherApiToken = '89b5367178e25ae61a711df8069000ff';
 
