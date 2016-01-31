@@ -2,15 +2,18 @@ var mongodb = require('mongodb');
 var mongoC = mongodb.MongoClient;
 
 module.exports = function(callback, slackData) {
+  var CONST = {};
 
-  // Mongo db data - Start
-  var dbName = 'heroku_mzb1clx9',
-      dbUser = 'getJoke',
-      dbUserPassword = 'Testas123',
-      dbUrl = 'ds037005.mongolab.com:37005';
-  // Mongo db data - End
+  // DB details
+  CONST.DB_NAME = 'heroku_mzb1clx9';
+  CONST.DB_USERNAME = 'getJoke';
+  CONST.DB_USER_PASSWORD = 'Testas123';
+  CONST.DB_URL_ADDRESS = 'ds037005.mongolab.com:37005';
 
-  mongoC.connect('mongodb://' + dbUser + ':' + dbUserPassword + '@' + dbUrl + '/' + dbName, function (err, db) {
+  // Joke icon image path
+  CONST.JOKE_ICONS = 'http://benderthebot.herokuapp.com/icons/joke/';
+
+  mongoC.connect('mongodb://' + CONST.DB_USERNAME + ':' + CONST.DB_USER_PASSWORD + '@' + CONST.DB_URL_ADDRESS + '/' + CONST.DB_NAME, function (err, db) {
       var collection = db.collection('jokes');
       var randomJokeId = Math.floor((Math.random() * 371) + 1);
 
@@ -19,7 +22,7 @@ module.exports = function(callback, slackData) {
         callback([{
             "color": GLOBAL.hexGenerator(),
             "title": result[0].joke,
-            "image_url": 'http://benderthebot.herokuapp.com/icons/joke/' + Math.floor(Math.random()*9+1) + '.png'
+            "image_url": CONST.JOKE_ICONS + Math.floor(Math.random()*9+1) + '.png'
         }]);
 
         db.close();
