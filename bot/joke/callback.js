@@ -15,23 +15,24 @@ module.exports = function(callback /*, slackData*/ ) {
 
     mongoC.connect('mongodb://' + CONST.DB_USERNAME + ':' + CONST.DB_USER_PASSWORD + '@' + CONST.DB_URL_ADDRESS + '/' + CONST.DB_NAME, function(err, db) {
         var collection = db.collection('jokes');
-        var jokesCount = collection.count;
+        var jokesCount = collection.count({}, {}, function(err, result) {
 
-        console.log('jokesCount', jokesCount);
+            console.log('Result is', result);
+            var randomJokeId = Math.floor((Math.random() * 371) + 1);
 
-        var randomJokeId = Math.floor((Math.random() * 371) + 1);
+            collection.find({
+                id: randomJokeId
+            }).limit(1).toArray(function(err, result) {
 
-        collection.find({
-            id: randomJokeId
-        }).limit(1).toArray(function(err, result) {
+                callback([{
+                    "color": GLOBAL.hexGenerator(),
+                    "title": result[0].joke,
+                    "image_url": CONST.JOKE_ICONS + Math.floor(Math.random() * 9 + 1) + '.png'
+                }]);
 
-            callback([{
-                "color": GLOBAL.hexGenerator(),
-                "title": result[0].joke,
-                "image_url": CONST.JOKE_ICONS + Math.floor(Math.random() * 9 + 1) + '.png'
-            }]);
+                db.close();
+            });
 
-            db.close();
         });
     });
 };
