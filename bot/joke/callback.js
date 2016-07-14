@@ -15,7 +15,7 @@ module.exports = function(callback /*, slackData*/ ) {
 
     mongoC.connect('mongodb://' + CONST.DB_USERNAME + ':' + CONST.DB_USER_PASSWORD + '@' + CONST.DB_URL_ADDRESS + '/' + CONST.DB_NAME, function(err, db) {
         var collection = db.collection('jokes');
-        let jokesCount = collection.count({
+        var jokesCount = collection.count({
             joke: {
                 $exists: true
             }
