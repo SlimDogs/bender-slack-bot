@@ -1,8 +1,8 @@
 var http = require('http');
 
 module.exports = function(callback, slackData) {
-  var CONST = {};
-  CONST.OPEN_WEATHER_API_TOKEN = '89b5367178e25ae61a711df8069000ff';
+    var CONST = {};
+    CONST.OPEN_WEATHER_API_TOKEN = '89b5367178e25ae61a711df8069000ff';
 
   var cityName = slackData.messageText.replace('!weather ', '').replace(/\s/g, '+');
   if (cityName === null || cityName === '' || cityName === '!weather') cityName = 'london';
@@ -30,44 +30,39 @@ module.exports = function(callback, slackData) {
       res.on('end', function() {
           var wObj = JSON.parse(body);
 
-          if (wObj.weather) {
+            if (wObj.weather) {
 
-            var wTitle = '';
-            for (var i = 0, b = wObj.weather.length; i < b; i++) {
-              wTitle = wTitle + wObj.weather[i].main + ' (' + wObj.weather[i].description + ')' + ((i + 1) === wObj.weather.length ? '' : ', ');
+                var wTitle = '';
+                for (var i = 0, b = wObj.weather.length; i < b; i++) {
+                wTitle = wTitle + wObj.weather[i].main + ' (' + wObj.weather[i].description + ')' + ((i + 1) === wObj.weather.length ? '' : ', ');
+                }
+
+                var windSpeed = wObj.name === 'Lviv' ? (wObj.wind.speed + 'm/s') : ((Math.round(wObj.wind.speed * 3600 / 1610.3 * 1000) / 1000) + 'mPh');
+
+                callback([{
+                    "color": GLOBAL.hexGenerator(),
+                    "title": wTitle,
+                    "fields": [{
+                        "title": "Temperature",
+                        "value": wObj.main.temp + '°C',
+                        "short": true
+                    }, {
+                        "title": "Wind",
+                        "value": windSpeed + ' (' + degToCompass(wObj.wind.deg) + ')',
+                        "short": true
+                    }, {
+                        "title": "Humidity",
+                        "value": wObj.main.humidity + '%',
+                        "short": true
+                    }, {
+                        "title": "Pressure",
+                        "value": wObj.main.pressure + 'hPa',
+                        "short": true
+                    }],
+                    "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
+                }], 'Weather in *' + wObj.name + '* :');
+
             }
-
-            var windSpeed = wObj.name === 'Lviv' ? (wObj.wind.speed + 'm/s') : ((Math.round(wObj.wind.speed * 3600 / 1610.3*1000)/1000) + 'mPh');
-
-            callback([{
-                "color": GLOBAL.hexGenerator(),
-                "title": wTitle,
-                "fields": [
-                  {
-                      "title": "Temperature",
-                      "value": wObj.main.temp + '°C',
-                      "short": true
-                  },
-                  {
-                      "title": "Wind",
-                      "value": windSpeed + ' (' + degToCompass(wObj.wind.deg) + ')',
-                      "short": true
-                  },
-                  {
-                      "title": "Humidity",
-                      "value": wObj.main.humidity + '%',
-                      "short": true
-                  },
-                  {
-                      "title": "Pressure",
-                      "value": wObj.main.pressure + 'hPa',
-                      "short": true
-                  }      
-                ],
-                "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
-            }], 'Weather in *' + wObj.name + '* :');
-
-        }
-      });
-  });
+        });
+    });
 };
