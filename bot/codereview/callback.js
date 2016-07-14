@@ -24,9 +24,9 @@ module.exports = function(callback, slackData) {
     }];
 
     function seleckLucky() {
-        var randomUser = Math.floor((Math.random() * currentTeamMembers.length) + 1);
+        var randomUser = currentTeamMembers[Math.floor((Math.random() * (currentTeamMembers.length - 1)) + 1)];
 
-        if (randomUser != slackData.userName) {
+        if (randomUser.name != slackData.userName) {
             return randomUser;
         } else {
             return seleckLucky();
