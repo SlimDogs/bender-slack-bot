@@ -6,7 +6,7 @@ var tflModule = require('./tfl/callback.js');
 var timeModule = require('./time/callback.js');
 var commandsModule = require('./commands/callback.js');
 
-module.exports = function (req, res, next) {
+module.exports = function (req, res) {
   var slackData = {
     userName: req.body.user_name,
     triggerWord: req.body.trigger_word.replace('!','').toLowerCase(),
@@ -53,7 +53,7 @@ module.exports = function (req, res, next) {
           attachments: attachmentObjectArray
         };
 
-        if (textString != null) {
+        if (textString !== null) {
           responseObj.text = textString;
         }
 

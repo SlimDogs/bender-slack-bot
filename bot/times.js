@@ -7,7 +7,7 @@ module.exports = function() {
         hostname: 'hooks.slack.com' ,
         path: '/services/T0GM8NHU0/B0H9881K8/TE8PaC19TxajzwIhDSun1ge7',
         method: 'POST'
-    }, function (res, b, c) {
+    }, function (res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
           console.log('Data received: ', chunk);
@@ -24,7 +24,7 @@ module.exports = function() {
         "text": message
     }));
     req.end();
-  };
+  }
 
   setInterval(function() {
     var d = new Date(),

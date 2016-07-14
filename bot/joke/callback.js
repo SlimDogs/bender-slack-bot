@@ -1,7 +1,7 @@
 var mongodb = require('mongodb');
 var mongoC = mongodb.MongoClient;
 
-module.exports = function(callback, slackData) {
+module.exports = function(callback/*, slackData*/) {
   var CONST = {};
 
   // DB details
