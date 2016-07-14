@@ -1,23 +1,23 @@
 var http = require('http');
 
 module.exports = function(callback, slackData) {
-  var CONST = {};
-  CONST.OPEN_WEATHER_API_TOKEN = '89b5367178e25ae61a711df8069000ff';
+    var CONST = {};
+    CONST.OPEN_WEATHER_API_TOKEN = '89b5367178e25ae61a711df8069000ff';
 
     var cityName = slackData.messageText.replace('!weather ', '').replace(/\s/g, '+');
     if (cityName == null || cityName == '' || cityName == '!weather') cityName = 'london';
 
-  http.get({
-      host: 'api.openweathermap.org',
-      path: '/data/2.5/weather?q=' + cityName + '&units=metric&appid=' + CONST.OPEN_WEATHER_API_TOKEN
-  }, function(res) {
-      // Continuously update stream with data
-      var body = '';
-      res.on('data', function(d) {
-          body += d;
-      });
-      res.on('end', function() {
-          var wObj = JSON.parse(body);
+    http.get({
+        host: 'api.openweathermap.org',
+        path: '/data/2.5/weather?q=' + cityName + '&units=metric&appid=' + CONST.OPEN_WEATHER_API_TOKEN
+    }, function(res) {
+        // Continuously update stream with data
+        var body = '';
+        res.on('data', function(d) {
+            body += d;
+        });
+        res.on('end', function() {
+            var wObj = JSON.parse(body);
 
             if (wObj.weather) {
 
