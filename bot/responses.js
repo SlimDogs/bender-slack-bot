@@ -11,7 +11,8 @@ module.exports = function(req, res, next) {
     var slackData = {
         userName: req.body.user_name,
         triggerWord: req.body.trigger_word.replace('!', '').toLowerCase(),
-        messageText: req.body.text.toLowerCase()
+        messageText: req.body.text.toLowerCase(),
+        messageTextUpperCase: req.body.text
     };
 
     // All responses

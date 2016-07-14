@@ -1,6 +1,6 @@
 module.exports = function(callback, slackData) {
 
-    var restOftheMessage = slackData.messageText.replace('!codereview', '');
+    var restOftheMessage = slackData.messageTextUpperCase.replace('!codereview', '');
     if (restOftheMessage.length > 0 && restOftheMessage.indexOf(' ') >= 0) {
         var options = restOftheMessage.split(' ');
     }
