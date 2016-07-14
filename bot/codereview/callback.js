@@ -35,6 +35,8 @@ module.exports = function(callback, slackData) {
 
     var selectedUser = seleckLucky();
 
+    console.log('Making a call back for codereview!');
+
     callback([{
         "color": GLOBAL.hexGenerator(),
         "title": "Hey, @" + slackData.userName + " needs someone for code review! I assign *" + selectedUser.name + "* for this task, @" + selectedUser.slack + " be kind and spare a minute :piero:"
