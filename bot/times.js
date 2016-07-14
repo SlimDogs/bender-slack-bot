@@ -30,7 +30,7 @@ module.exports = function() {
         'it\'s almost stand up time, have a good one!',
         'it\s your turn for a stand up!',
         'new day, new stand up :)',
-        'it is a standuuuuppp timmmeee!!!',
+        'it\'s a time to list the things you have done Yesterday!',
         'don\'t sleep, stand up!'
     ];
 
