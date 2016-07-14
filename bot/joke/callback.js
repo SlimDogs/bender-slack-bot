@@ -16,9 +16,7 @@ module.exports = function(callback /*, slackData*/ ) {
     mongoC.connect('mongodb://' + CONST.DB_USERNAME + ':' + CONST.DB_USER_PASSWORD + '@' + CONST.DB_URL_ADDRESS + '/' + CONST.DB_NAME, function(err, db) {
         var collection = db.collection('jokes');
         var jokesCount = collection.count({}, {}, function(err, result) {
-
-            console.log('Result is', result);
-            var randomJokeId = Math.floor((Math.random() * 371) + 1);
+            var randomJokeId = Math.floor((Math.random() * result) + 1);
 
             collection.find({
                 id: randomJokeId
