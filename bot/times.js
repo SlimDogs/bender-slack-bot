@@ -42,9 +42,9 @@ module.exports = function() {
         if (days !== 6 && days !== 0) { // No posting on Weekends
             // Morning stand ups announce
             if (hours === 8 && minutes === 59) {
-                postMsg('*Team 1* ' + Math.floor((Math.random() * standUpMessages.length) + 1));
+                postMsg('*Team 1* ' + standUpMessages[Math.floor((Math.random() * standUpMessages.length) + 1)]);
             } else if (hours === 9 && minutes === 14) {
-                postMsg('*Team 2* ' + Math.floor((Math.random() * standUpMessages.length) + 1));
+                postMsg('*Team 2* ' + standUpMessages[Math.floor((Math.random() * standUpMessages.length) + 1)]);
             }
         }
 
