@@ -1,6 +1,6 @@
 var https = require('https');
 
-module.exports = function(callback, slackData) {
+module.exports = function(callback/*, slackData*/) {
   https.get('https://api.tfl.gov.uk/line/mode/tube/status', function(res) {
 
     // Continuously update stream with data
@@ -9,7 +9,7 @@ module.exports = function(callback, slackData) {
         body += d;
     });
     res.on('end', function() {
-        tubeObj = JSON.parse(body);
+        var tubeObj = JSON.parse(body);
 
         var goodService = [],
             badService = [];

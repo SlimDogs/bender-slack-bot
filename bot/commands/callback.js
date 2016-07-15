@@ -1,4 +1,4 @@
-module.exports = function(callback, slackData) {
+module.exports = function(callback/*, slackData*/) {
 
     var commands = [{
         title: 'Useful commands',

@@ -1,6 +1,6 @@
 var time = require('time');
 
-module.exports = function (callback, slackData) {
+module.exports = function (callback/*, slackData*/) {
   var monthNames = [
     'January',
     'February',
@@ -25,7 +25,7 @@ module.exports = function (callback, slackData) {
       return '0' + digit;
     }
     else return digit;
-  };
+  }
 
   callback([{
       "color": GLOBAL.hexGenerator(),

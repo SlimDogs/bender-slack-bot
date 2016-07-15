@@ -21,16 +21,18 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', function (req, res) { res.status(200).send('<Bender> This house is mine!') });
+app.get('/', function (req, res) {
+	res.status(200).send('<Bender> This house is mine!');
+});
 app.post('/slackBotTrigger', botResponseCallback);
 
 // Error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   console.error(err.stack);
   res.status(400).send(err.message);
 });
 
-app.use("/icons", express.static(__dirname + '/icons'))
+app.use("/icons", express.static(__dirname + '/icons'));
 
 app.listen(port, function () {
   console.log('Bender bot is running & listening port: ' + port);

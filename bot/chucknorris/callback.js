@@ -1,6 +1,6 @@
 var http = require('http');
 
-module.exports = function(callback, slackData) {
+module.exports = function(callback/*, slackData*/) {
   http.get({
       host: 'api.icndb.com',
       path: '/jokes/random'

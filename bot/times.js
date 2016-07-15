@@ -1,7 +1,6 @@
 var https = require('https');
 
 module.exports = function() {
-
     function postMsg(message) {
         var req = https.request({
             hostname: 'hooks.slack.com',
@@ -47,18 +46,6 @@ module.exports = function() {
             } else if (hours === 9 && minutes === 14) {
                 postMsg('*Team 2* ' + Math.floor((Math.random() * standUpMessages.length) + 1));
             }
-
-            /*
-            // Lunch time
-            else if (hours === 12 && minutes === 0) {
-              postMsg('*Lunch time*! Enjoy it :-)');
-            }
-
-            //
-            else if (hours === 17 && minutes === 55) {
-              postMsg('Before starting your travel home have a look on current tube status. <Command: *!tfl*>');
-            }
-            */
         }
 
     }, 60000);
