@@ -12,7 +12,7 @@ module.exports = function(callback, slackData) {
         for (var i = 0, b = options.length; i < b; i++) {
             currentTeamMembers.push({
                 name: options[i],
-                slack: options[i]
+                slack: options[i].toLowerCase()
             });
         }
 
