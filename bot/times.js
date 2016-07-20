@@ -41,7 +41,7 @@ module.exports = function() {
 
         if (days !== 6 && days !== 0) { // No posting on Weekends
             // Morning stand ups announce
-            var randomNumber = Math.floor((Math.random() * standUpMessages.length) + 1),
+            var randomNumber = Math.floor((Math.random() * (standUpMessages.length - 1)) + 1),
                 randomMessage = standUpMessages[randomNumber];
 
             if (hours === 8 && minutes === 59) {
