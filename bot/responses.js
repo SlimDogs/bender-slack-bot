@@ -6,6 +6,7 @@ var tflModule = require('./tfl/callback.js');
 var timeModule = require('./time/callback.js');
 var codeReviewModule = require('./codereview/callback.js');
 var commandsModule = require('./commands/callback.js');
+var paoloModule = require('./paolo/callback.js');
 
 module.exports = function(req, res) {
     var slackData = {
@@ -31,6 +32,7 @@ module.exports = function(req, res) {
         'bender': 'Bite my shiny metal ass!',
         'bot': 'Bite my shiny metal ass!',
         'codereview': codeReviewModule,
+        'paolo': paoloModule,
         // Help
         'commands': commandsModule
     };
