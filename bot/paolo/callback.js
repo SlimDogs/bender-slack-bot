@@ -1,4 +1,4 @@
-module.exports = function(callback /*, slackData*/ ) {
+module.exports = function (callback /*, slackData*/) {
     // TO Do
     /*callback([{
         "color": GLOBAL.hexGenerator(),

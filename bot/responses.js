@@ -1,21 +1,14 @@
+/// <reference path="../typings/index.d.ts" />
+/// <reference path="../interfaces.ts" />
 // Bot modules
-var jokeModule = require('./joke/callback.js');
-var chucknorrisModule = require('./chucknorris/callback.js');
-var weatherModule = require('./weather/callback.js');
-var tflModule = require('./tfl/callback.js');
-var timeModule = require('./time/callback.js');
-var codeReviewModule = require('./codereview/callback.js');
-var commandsModule = require('./commands/callback.js');
-var paoloModule = require('./paolo/callback.js');
-
-module.exports = function(req, res) {
+var jokeModule = require('./joke/callback.js'), chucknorrisModule = require('./chucknorris/callback.js'), weatherModule = require('./weather/callback.js'), tflModule = require('./tfl/callback.js'), timeModule = require('./time/callback.js'), codeReviewModule = require('./codereview/callback.js'), commandsModule = require('./commands/callback.js'), paoloModule = require('./paolo/callback.js');
+module.exports = function (req, res) {
     var slackData = {
         userName: req.body.user_name,
         triggerWord: req.body.trigger_word.replace('!', '').toLowerCase(),
         messageText: req.body.text.toLowerCase(),
         messageTextUpperCase: req.body.text
     };
-
     // All responses
     var responses = {
         // Fun
@@ -36,39 +29,33 @@ module.exports = function(req, res) {
         // Help
         'commands': commandsModule
     };
-
     var attachments = ['joke', 'chucknorris', 'weather', 'tfl', 'time', 'date', 'commands'];
-
     // avoid infinite loop
     if (slackData.userName !== 'slackbot') {
         var callbackFunction;
-
         if (attachments.indexOf(slackData.triggerWord) < 0) {
-            callbackFunction = function(textString) {
-
+            callbackFunction = function (textString) {
                 return res.status(200).json({
                     text: textString
                 });
-
             };
-        } else {
-            callbackFunction = function(attachmentObjectArray, textString) {
+        }
+        else {
+            callbackFunction = function (attachmentObjectArray, textString) {
                 var responseObj = {
-                    attachments: attachmentObjectArray
+                    attachments: attachmentObjectArray,
+                    text: null
                 };
-
                 if (textString) {
                     responseObj.text = textString;
                 }
-
                 return res.status(200).json(responseObj);
-
             };
         }
-
         if (typeof responses[slackData.triggerWord] === 'function') {
             responses[slackData.triggerWord](callbackFunction, slackData);
-        } else {
+        }
+        else {
             callbackFunction(responses[slackData.triggerWord]);
         }
     }
