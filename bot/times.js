@@ -1,6 +1,6 @@
 /// <reference path="../typings/index.d.ts" />
 /// <reference path="../interfaces.ts" />
-var https = require('https'), users = require('/users/callback.js');
+var https = require('https'), users = require('./users/callback.js');
 module.exports = function () {
     function postMsg(message, image) {
         if (message === void 0) { message = ''; }
