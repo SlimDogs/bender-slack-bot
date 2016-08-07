@@ -1,6 +1,6 @@
 /// <reference path="../../typings/index.d.ts" />
 /// <reference path="../../interfaces.ts" />
-var users = require('./users/callback.js');
+var users = require('../users/callback.js');
 module.exports = function (callback, slackData) {
     var restOftheMessage = slackData.messageTextUpperCase.replace('!codereview', ''), options;
     if (restOftheMessage.length > 0 && restOftheMessage.indexOf(' ') >= 0) {
