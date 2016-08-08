@@ -40,11 +40,11 @@ module.exports = function(req, res) {
         'commands': commandsModule
     };
 
-    var attachments = ['joke', 'chucknorris', 'weather', 'tfl', 'time', 'date', 'commands'];
+    let attachments: Array<string> = ['joke', 'chucknorris', 'weather', 'tfl', 'time', 'date', 'commands'];
 
     // avoid infinite loop
     if (slackData.userName !== 'slackbot') {
-        var callbackFunction;
+        let callbackFunction;
 
         if (attachments.indexOf(slackData.triggerWord) < 0) {
             callbackFunction = function(textString) {

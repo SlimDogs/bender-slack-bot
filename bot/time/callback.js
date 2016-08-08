@@ -1,6 +1,7 @@
 /// <reference path="../../typings/index.d.ts" />
-var time = require('time');
-module.exports = function (callback /*, slackData*/) {
+(function () {
+    'use strict';
+    var time = require('time');
     var monthNames = [
         'January',
         'February',
@@ -15,30 +16,28 @@ module.exports = function (callback /*, slackData*/) {
         'November',
         'December'
     ];
-    var londonDate = new Date();
-    var lvivDate = new time.Date();
-    lvivDate.setTimezone('Europe/Kiev');
     function normalizeNumber(digit) {
-        if (digit < 10) {
-            return '0' + digit;
-        }
-        else
-            return digit;
+        return (digit < 10 ? '0' : '') + digit;
     }
-    callback([{
-            "color": global['hexGenerator'](),
-            "fields": [
-                {
-                    "title": 'London (GB)',
-                    "value": normalizeNumber(londonDate.getDate()) + ' ' + monthNames[londonDate.getMonth()] + ' ' + londonDate.getFullYear() + ', ' + normalizeNumber(londonDate.getHours()) + ':' + normalizeNumber(londonDate.getMinutes()),
-                    "short": true
-                },
-                {
-                    "title": 'Lviv (UKR)',
-                    "value": normalizeNumber(lvivDate.getDate()) + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + normalizeNumber(lvivDate.getHours()) + ':' + normalizeNumber(lvivDate.getMinutes()),
-                    "short": true
-                }
-            ],
-            "image_url": 'http://benderthebot.herokuapp.com/icons/time.png'
-        }]);
-};
+    var timeResponseFunction = function (callback /*, slackData*/) {
+        var londonDate = new Date(), lvivDate = new time.Date();
+        lvivDate.setTimezone('Europe/Kiev');
+        callback([{
+                "color": global['hexGenerator'](),
+                "fields": [
+                    {
+                        "title": 'London (GB)',
+                        "value": normalizeNumber(londonDate.getDate()) + ' ' + monthNames[londonDate.getMonth()] + ' ' + londonDate.getFullYear() + ', ' + normalizeNumber(londonDate.getHours()) + ':' + normalizeNumber(londonDate.getMinutes()),
+                        "short": true
+                    },
+                    {
+                        "title": 'Lviv (UKR)',
+                        "value": normalizeNumber(lvivDate.getDate()) + ' ' + monthNames[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + normalizeNumber(lvivDate.getHours()) + ':' + normalizeNumber(lvivDate.getMinutes()),
+                        "short": true
+                    }
+                ],
+                "image_url": 'http://benderthebot.herokuapp.com/icons/time.png'
+            }]);
+    };
+    module.exports = timeResponseFunction;
+})();

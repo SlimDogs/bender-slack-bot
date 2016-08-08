@@ -32,7 +32,7 @@ module.exports = function (req, res) {
     var attachments = ['joke', 'chucknorris', 'weather', 'tfl', 'time', 'date', 'commands'];
     // avoid infinite loop
     if (slackData.userName !== 'slackbot') {
-        var callbackFunction;
+        var callbackFunction = void 0;
         if (attachments.indexOf(slackData.triggerWord) < 0) {
             callbackFunction = function (textString) {
                 return res.status(200).json({

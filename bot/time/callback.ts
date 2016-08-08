@@ -23,7 +23,7 @@
       return (digit < 10 ? '0' : '') + digit;
     }
 
-  let timeResponseFunction = function (callback/*, slackData*/) {
+  let timeResponseFunction = function (callback/*, slackData*/): void {
 
     let londonDate: Date = new Date(),
         lvivDate = new time.Date();
