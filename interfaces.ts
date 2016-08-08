@@ -39,7 +39,7 @@ interface IslackPostField {
 }
 
 interface IslackPost {
-    attachments?: Object,
+    attachments?: Array<IslackPost>,
     channel?: string,
     username: string,
     text?:string,
