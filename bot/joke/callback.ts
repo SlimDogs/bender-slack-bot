@@ -1,46 +1,36 @@
 /// <reference path="../../typings/index.d.ts" />
+/// <reference path="../../interfaces.ts" />
 
-var mongodb = require('mongodb');
-var mongoC = mongodb.MongoClient;
+(function() {
 
-module.exports = function(callback /*, slackData*/ ) {
-    interface dbConfig {
-        DB_NAME?: string,
-        DB_USERNAME?: string,
-        DB_USER_PASSWORD?: string,
-        DB_URL_ADDRESS?: string,
-        JOKE_ICONS?: string
-    }
+    'use strict';
 
-    var CONST: dbConfig = {};
+    let mongodb = require('mongodb'),
+        mongoC = mongodb.MongoClient,
+        config: Iconfig = require('../config.js');
 
-    // DB details
-    CONST.DB_NAME = 'heroku_mzb1clx9';
-    CONST.DB_USERNAME = 'getJoke';
-    CONST.DB_USER_PASSWORD = 'Testas123';
-    CONST.DB_URL_ADDRESS = 'ds037005.mongolab.com:37005';
+    module.exports = function(callback /*, slackData*/ ) {
+        mongoC.connect('mongodb://' + config.DB_USERNAME + ':' + config.DB_USER_PASSWORD + '@' + config.DB_URL_ADDRESS + '/' + config.DB_NAME, function(err, db) {
+            let collection = db.collection('jokes'),
+                jokesCount = collection.count({}, {}, function(err, result) {
 
-    // Joke icon image path
-    CONST.JOKE_ICONS = 'http://benderthebot.herokuapp.com/icons/joke/';
+                let randomJokeId = Math.floor((Math.random() * result) + 1);
 
-    mongoC.connect('mongodb://' + CONST.DB_USERNAME + ':' + CONST.DB_USER_PASSWORD + '@' + CONST.DB_URL_ADDRESS + '/' + CONST.DB_NAME, function(err, db) {
-        var collection = db.collection('jokes');
-        var jokesCount = collection.count({}, {}, function(err, result) {
-            var randomJokeId = Math.floor((Math.random() * result) + 1);
+                collection.find({
+                    id: randomJokeId
+                }).limit(1).toArray(function(err, result) {
 
-            collection.find({
-                id: randomJokeId
-            }).limit(1).toArray(function(err, result) {
+                    callback([{
+                        "color": global['hexGenerator'](),
+                        "title": result[0].joke,
+                        "image_url": 'http://benderthebot.herokuapp.com/icons/joke/' + Math.floor(Math.random() * 9 + 1) + '.png'
+                    }]);
 
-                callback([{
-                    "color": global['hexGenerator'](),
-                    "title": result[0].joke,
-                    "image_url": CONST.JOKE_ICONS + Math.floor(Math.random() * 9 + 1) + '.png'
-                }]);
+                    db.close();
+                });
 
-                db.close();
             });
-
         });
-    });
-};
+    };
+
+})();
