@@ -17,3 +17,5 @@ Tech used
 - Node.js + MongoDB
 - TFL API
 - OpenWeather API
+
+Tested/Deployed to: Heroku
