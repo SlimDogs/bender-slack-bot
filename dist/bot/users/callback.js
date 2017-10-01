@@ -1,11 +1,7 @@
-/// <reference path="../../typings/index.d.ts" />
-/// <reference path="../../interfaces.ts" />
 (function () {
-    'use strict';
-    var team = (function () {
-        function team() {
+    var TeamCommands = (function () {
+        function TeamCommands() {
             this.users = [
-                // Devs
                 {
                     name: 'Umair Butt',
                     username: 'umairbutt',
@@ -17,33 +13,6 @@
                     birthday: {
                         day: 11,
                         month: 3
-                    }
-                },
-                {
-                    name: 'Tautvydas Derzinskas',
-                    username: 'tautvydas',
-                    team: 1,
-                    location: 'London',
-                    isDev: true,
-                    isTester: false,
-                    gender: 'male',
-                    birthday: {
-                        day: 12,
-                        month: 10,
-                        year: 1988
-                    }
-                },
-                {
-                    name: 'Justinas Marozas',
-                    username: 'justinas.marozas',
-                    team: 1,
-                    location: 'London',
-                    isDev: true,
-                    isTester: false,
-                    gender: 'male',
-                    birthday: {
-                        day: 28,
-                        month: 5
                     }
                 },
                 {
@@ -60,33 +29,6 @@
                     }
                 },
                 {
-                    name: 'Chris Poulter',
-                    username: 'chrispoulter',
-                    team: 2,
-                    location: 'London',
-                    isDev: true,
-                    isTester: true,
-                    gender: 'male',
-                    birthday: {
-                        day: 22,
-                        month: 5
-                    }
-                },
-                {
-                    name: 'Ian Port',
-                    username: 'iport',
-                    team: 2,
-                    location: 'London',
-                    isDev: true,
-                    isTester: true,
-                    gender: 'male',
-                    birthday: {
-                        day: 4,
-                        month: 8
-                    }
-                },
-                // Testers
-                {
                     name: 'Hannah Adams',
                     username: 'hadams',
                     team: 2,
@@ -97,19 +39,6 @@
                     birthday: {
                         day: 0,
                         month: 0
-                    }
-                },
-                {
-                    name: 'Diana Pinchuk',
-                    username: 'diana_pinchuk',
-                    team: 2,
-                    location: 'Lviv',
-                    isDev: false,
-                    isTester: true,
-                    gender: 'female',
-                    birthday: {
-                        day: 1,
-                        month: 5
                     }
                 },
                 {
@@ -205,40 +134,28 @@
                 }
             ];
         }
-        team.prototype.getDevs = function () {
-            var onlyDevs = this.users.filter(function (e) {
-                return e.isDev;
-            });
-            return onlyDevs;
+        TeamCommands.prototype.getDevs = function () {
+            return this.users.filter(function (user) { return user.isDev; });
         };
-        team.prototype.getTesters = function () {
-            var onlyTesters = this.users.filter(function (e) {
-                return e.isTester;
-            });
-            return onlyTesters;
+        TeamCommands.prototype.getTesters = function () {
+            return this.users.filter(function (user) { return user.isTester; });
         };
-        team.prototype.getCodeReviewer = function (askerUsername) {
-            // Getting asker team
-            var asker = this.users.filter(function (e) {
-                return e.username === askerUsername;
-            })[0], askerTeam = asker.team;
-            // Getting all possible reviewers (same team + devs)
-            var possibleReviewers = this.users.filter(function (e) {
-                return e.username !== askerUsername && e.isDev && e.team === askerTeam;
+        TeamCommands.prototype.getCodeReviewer = function (askerUsername) {
+            var asker = this.users.filter(function (user) { return user.username === askerUsername; })[0];
+            var askerTeam = asker.team;
+            var possibleReviewers = this.users.filter(function (user) {
+                return user.username !== askerUsername && user.isDev && user.team === askerTeam;
             });
-            // Selecting random reviewer
-            var reviewer = possibleReviewers[Math.floor((Math.random() * (possibleReviewers.length - 1)) + 1)];
-            return reviewer;
+            return possibleReviewers[Math.floor((Math.random() * (possibleReviewers.length - 1)) + 1)];
         };
-        team.prototype.getBirthdayUsers = function (day, month) {
+        TeamCommands.prototype.getBirthdayUsers = function (day, month) {
             if (day === void 0) { day = 0; }
             if (month === void 0) { month = 0; }
-            var birthdayCelebrators = this.users.filter(function (e) {
-                return e.birthday.day === day && e.birthday.month === month;
+            return this.users.filter(function (user) {
+                return user.birthday.day === day && user.birthday.month === month;
             });
-            return birthdayCelebrators;
         };
-        return team;
+        return TeamCommands;
     }());
-    module.exports = new team();
+    module.exports = TeamCommands;
 })();

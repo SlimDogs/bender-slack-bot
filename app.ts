@@ -2,20 +2,22 @@
 /// <reference path="interfaces.ts" />
 
 // Server modules
-let express = require('express'),
-    bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
+
 // App modules
-let botResponseCallback = require('./bot/responses.js'),
-    timesModule = require('./bot/times.js');
+const botResponseCallback = require('./bot/responses.js');
+const chronTaskRunner = require('./bot/chron-task-runner.js');
 
 // Global HEX color generator
-global['hexGenerator'] = function() {
-    let letters = '0123456789ABCDEF'.split(''),
-        color = '#';
-    for (let i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+global['hexGenerator'] = function () {
+  const letters = '0123456789ABCDEF'.split('');
+
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 };
 
 // App logic
@@ -25,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.get('/', function (req, res) {
-	res.status(200).send('<Bender> This house is mine!');
+  res.status(200).send('<Bender> This house is mine!');
 });
 app.post('/slackBotTrigger', botResponseCallback);
 
@@ -35,10 +37,10 @@ app.use(function (err, req, res) {
   res.status(400).send(err.message);
 });
 
-app.use('/icons', express.static(__dirname + '/icons'));
+app.use('/icons', express.static(`${__dirname}/icons`));
 
 app.listen(port, function () {
-  console.log('Bender bot is running & listening port: ' + port);
+  console.log(`Bender bot is running & listening port: ${port}`);
 });
 
-timesModule();
+const startTasks = new chronTaskRunner();

@@ -1,75 +1,95 @@
-/// <reference path="../../typings/index.d.ts" />
-/// <reference path="../../interfaces.ts" />
-(function() {
+/// <reference path='../../typings/index.d.ts' />
+/// <reference path='../../interfaces.ts' />
 
-    'use strict';
+module.exports = (() => { 
+  const http = require('http');
+  const config: Iconfig = require('../config.js');
 
-    let http = require('http'),
-        config: Iconfig = require('../config.js');
+  class WeatherCommands {
+    private _callback: Function;
+    private _slackData: slackOpts;
 
-    module.exports = function(callback, slackData) {
-
-    let cityName: string = slackData.messageText.replace('!weather ', '').replace(/\s/g, '+');
-    if (cityName === null || cityName === '' || cityName === '!weather') cityName = 'london';
-
-
-    // Utils
-    function degToCompass(num) { 
-        while (num < 0) num += 360;
-        while (num >= 360) num -= 360; 
-        var val = Math.round((num -11.25 ) / 22.5),
-            arr = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
-        return arr[Math.abs(val)];
+    get worldDirections() {
+      return ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
     }
 
-    // Main logic
-    http.get({
+    get city() {
+      let cityName = this._slackData.messageText.replace('!weather ', '').replace(/\s/g, '+');
+
+      if (cityName === null || cityName === '' || cityName === '!weather') {
+        cityName = 'london'
+      };
+
+      return cityName;
+    }
+
+    constructor(callback: Function, slackData: slackOpts) {
+      this._callback = callback;
+      this._slackData = slackData;
+
+      this.respond();
+    }
+
+    public respond() {
+      const _self = this;
+
+      http.get({
         host: 'api.openweathermap.org',
-        path: '/data/2.5/weather?q=' + cityName + '&units=metric&appid=' + config.OPEN_WEATHER_API_TOKEN
-    }, function(res) {
-        // Continuously update stream with data
-        var body = '';
-        res.on('data', function(d) {
-            body += d;
-        });
+        path: `/data/2.5/weather?q=${this.city}&units=metric&appid=${config.OPEN_WEATHER_API_TOKEN}`
+      }, (res) => {
+
+        let body = '';
+        res.on('data', function(d) { body += d; });
         res.on('end', function() {
-            var wObj = JSON.parse(body);
+          const apiResponse = JSON.parse(body);
 
-                if (wObj.weather) {
+          if (apiResponse.weather) {
+            _self._callback([{
+              'color': global['hexGenerator'](),
+              'title': _self._generateTitle(apiResponse.weather),
+              'fields': [{
+                'title': 'Temperature', 'value': `${apiResponse.main.temp}°C`, 'short': true
+              }, {
+                'title': 'Wind', 'value': `${_self._getWindSpeed(apiResponse)} (${_self._degreesToString(apiResponse.wind.deg)})`, 'short': true
+              }, {
+                'title': 'Humidity', 'value': `${apiResponse.main.humidity}%`, 'short': true
+              }, {
+                'title': 'Pressure', 'value': `${apiResponse.main.pressure}hPa`, 'short': true
+              }],
+              'image_url': `http://openweathermap.org/img/w/${apiResponse.weather[0].icon}.png`,
+            }], `Weather in *${apiResponse.name}* :`);
 
-                    var wTitle = '';
-                    for (var i = 0, b = wObj.weather.length; i < b; i++) {
-                    wTitle = wTitle + wObj.weather[i].main + ' (' + wObj.weather[i].description + ')' + ((i + 1) === wObj.weather.length ? '' : ', ');
-                    }
-
-                    var windSpeed = wObj.name === 'Lviv' ? (wObj.wind.speed + 'm/s') : ((Math.round(wObj.wind.speed * 3600 / 1610.3 * 1000) / 1000) + 'mPh');
-
-                    callback([{
-                        "color": global['hexGenerator'](),
-                        "title": wTitle,
-                        "fields": [{
-                            "title": "Temperature",
-                            "value": wObj.main.temp + '°C',
-                            "short": true
-                        }, {
-                            "title": "Wind",
-                            "value": windSpeed + ' (' + degToCompass(wObj.wind.deg) + ')',
-                            "short": true
-                        }, {
-                            "title": "Humidity",
-                            "value": wObj.main.humidity + '%',
-                            "short": true
-                        }, {
-                            "title": "Pressure",
-                            "value": wObj.main.pressure + 'hPa',
-                            "short": true
-                        }],
-                        "image_url": 'http://openweathermap.org/img/w/' + wObj.weather[0].icon + '.png',
-                    }], 'Weather in *' + wObj.name + '* :');
-
-                }
-            });
+          }
         });
-    };
+      });
+    }
 
+    private _degreesToString(num: number) {
+      while (num < 0) num += 360;
+      while (num >= 360) num -= 360;
+      const val = Math.round((num - 11.25) / 22.5);
+
+      return this.worldDirections[Math.abs(val)];
+    }
+
+    private _generateTitle(citiesArray: any[]) {
+      let title = '';
+      citiesArray.forEach((city, i) => {
+        title +=  `${city.main} (${city.description})${((i + 1) === citiesArray.length ? '' : ', ')}`;
+      });
+
+      return title
+    }
+
+    private _getWindSpeed(apiResponse: any): string {
+      if (apiResponse.name === 'Lviv') {
+        return `${apiResponse.wind.speed}m/s`;
+      }
+      
+      return `${Math.round(apiResponse.wind.speed * 3600 / 1610.3 * 1000) / 1000}mPh`;
+    }
+  }
+
+
+  return WeatherCommands;
 })();

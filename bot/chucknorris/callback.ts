@@ -1,24 +1,37 @@
 /// <reference path="../../typings/index.d.ts" />
 
-var http = require('http');
-
-module.exports = function(callback/*, slackData*/) {
-  http.get({
-      host: 'api.icndb.com',
-      path: '/jokes/random'
-  }, function(res) {
-      // Continuously update stream with data
-      var body = '';
-      res.on('data', function(d) {
+(() => {
+  const http = require('http');
+  
+  class ChuckNorrisCommands {
+    private _callback: Function;
+  
+    constructor(callback: Function) {
+      this._callback = callback;
+  
+      this.respond();
+    }
+  
+    public respond() {
+      http.get({
+        host: 'api.icndb.com',
+        path: '/jokes/random'
+      }, function (res) {
+        let body = '';
+        res.on('data', function (d) {
           body += d;
-      });
-      res.on('end', function() {
-          var jokeObj = JSON.parse(body);
-          callback([{
-              "color": global['hexGenerator'](),
-              "title": jokeObj.value.joke,
-              "image_url": 'http://benderthebot.herokuapp.com/icons/chucknorris.png'
+        });
+        res.on('end', function () {
+          const jokeObj = JSON.parse(body);
+          this._callback([{
+            "color": global['hexGenerator'](),
+            "title": jokeObj.value.joke,
+            "image_url": 'http://benderthebot.herokuapp.com/icons/chucknorris.png'
           }]);
+        });
       });
-  });
-};
+    }
+  }
+  
+  module.exports = ChuckNorrisCommands;  
+})();
