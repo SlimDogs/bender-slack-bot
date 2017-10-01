@@ -1,4 +1,4 @@
-![Latest CI build status](https://travis-ci.org/SlimDogs/bender-slack-bot.svg?branch=master "Latest CI build status")
+![Latest CI build status](https://travis-ci.org/SlimDogs/bender-slack-bot.svg?branch=master "Latest CI build status") [![Greenkeeper badge](https://badges.greenkeeper.io/SlimDogs/bender-slack-bot.svg)](https://greenkeeper.io/)
 
 # BENDER the Slack BOT
 
