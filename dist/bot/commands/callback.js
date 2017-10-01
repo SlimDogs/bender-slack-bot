@@ -30,7 +30,7 @@
             configurable: true
         });
         HelpCommands.prototype.respond = function () {
-            var response;
+            var response = [];
             this.commands.forEach(function (category) {
                 var fields = category.commands.map(function (command) {
                     return {

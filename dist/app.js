@@ -17,9 +17,10 @@ app.get('/', function (req, res) {
     res.status(200).send('<Bender> This house is mine!');
 });
 app.post('/slackBotTrigger', botResponseCallback);
-app.use(function (err, req, res) {
+app.use(function (err, req, res, next) {
+    console.log('err', err, 'res', res);
     console.error(err.stack);
-    res.status(400).send(err.message);
+    res.status(500).send('Something broke!');
 });
 app.use('/icons', express.static(__dirname + "/icons"));
 app.listen(port, function () {

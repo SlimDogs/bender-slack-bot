@@ -32,9 +32,10 @@ app.get('/', function (req, res) {
 app.post('/slackBotTrigger', botResponseCallback);
 
 // Error handler
-app.use(function (err, req, res) {
-  console.error(err.stack);
-  res.status(400).send(err.message);
+app.use(function (err, req, res, next) {
+  console.log('err', err, 'res', res);
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
 });
 
 app.use('/icons', express.static(`${__dirname}/icons`));

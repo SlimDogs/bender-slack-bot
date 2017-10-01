@@ -9,19 +9,16 @@
   class JokeCommands {
     private _callback: Function;
   
-    construct(callback: Function) {
+    constructor(callback: Function) {
       this._callback = callback;
-  
       this.respond();
     }
   
     public respond() {
       const _self = this;
-  
       mongoClient.connect(
         `mongodb://${config.DB_USERNAME}:${config.DB_USER_PASSWORD}@${config.DB_URL_ADDRESS}/${config.DB_NAME}`,
         function (err, db) {
-  
           const collection = db.collection('jokes');
           collection.count({}, {}, function (err, result) {
             const randomJokeId = Math.floor((Math.random() * result) + 1);

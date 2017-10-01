@@ -3,12 +3,10 @@
     var mongoClient = mongoDB.MongoClient;
     var config = require('../config.js');
     var JokeCommands = (function () {
-        function JokeCommands() {
-        }
-        JokeCommands.prototype.construct = function (callback) {
+        function JokeCommands(callback) {
             this._callback = callback;
             this.respond();
-        };
+        }
         JokeCommands.prototype.respond = function () {
             var _self = this;
             mongoClient.connect("mongodb://" + config.DB_USERNAME + ":" + config.DB_USER_PASSWORD + "@" + config.DB_URL_ADDRESS + "/" + config.DB_NAME, function (err, db) {

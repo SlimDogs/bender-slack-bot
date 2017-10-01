@@ -3,7 +3,7 @@
     var TimeCommands = (function () {
         function TimeCommands(callback) {
             this._callback = callback;
-            this.repsond();
+            this.respond();
         }
         Object.defineProperty(TimeCommands.prototype, "months", {
             get: function () {
@@ -17,7 +17,7 @@
             enumerable: true,
             configurable: true
         });
-        TimeCommands.prototype.repsond = function () {
+        TimeCommands.prototype.respond = function () {
             var londonDate = new Date();
             var lvivDate = moment.tz(londonDate, 'Europe/Kiev');
             this._callback([{
@@ -25,12 +25,12 @@
                     "fields": [
                         {
                             "title": 'London (GB)',
-                            "value": this._padNumber(londonDate.getDate()) + ' ' + this.months[londonDate.getMonth()] + ' ' + londonDate.getFullYear() + ', ' + this._padNumber(londonDate.getHours()) + ':' + this._padNumber(londonDate.getMinutes()),
+                            "value": this._padNumber(londonDate.getDate()) + " " + this.months[londonDate.getMonth()] + " " + londonDate.getFullYear() + ", " + this._padNumber(londonDate.getHours()) + ":" + this._padNumber(londonDate.getMinutes()),
                             "short": true
                         },
                         {
                             "title": 'Lviv (UKR)',
-                            "value": this._padNumber(lvivDate.getDate()) + ' ' + this.months[lvivDate.getMonth()] + ' ' + lvivDate.getFullYear() + ', ' + this._padNumber(lvivDate.getHours()) + ':' + this._padNumber(lvivDate.getMinutes()),
+                            "value": lvivDate.format('DD') + " " + this.months[parseInt(lvivDate.format('M'), 10)] + " " + lvivDate.format('YYYY') + ", " + lvivDate.format('HH') + ":" + lvivDate.format('mm'),
                             "short": true
                         }
                     ],

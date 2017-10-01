@@ -33,7 +33,7 @@
     }
   
     public respond() {
-      let response;
+      let response = [];
       
       this.commands.forEach(category => {
         const fields = category.commands.map(command => {

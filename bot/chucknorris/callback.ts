@@ -13,6 +13,7 @@
     }
   
     public respond() {
+      const _self = this;
       http.get({
         host: 'api.icndb.com',
         path: '/jokes/random'
@@ -23,7 +24,7 @@
         });
         res.on('end', function () {
           const jokeObj = JSON.parse(body);
-          this._callback([{
+          _self._callback([{
             "color": global['hexGenerator'](),
             "title": jokeObj.value.joke,
             "image_url": 'http://benderthebot.herokuapp.com/icons/chucknorris.png'
