@@ -2,6 +2,8 @@
 
 # BENDER the Slack BOT
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/SlimDogs/bender-slack-bot.svg)](https://greenkeeper.io/)
+
 ## Command list:
 - !codereview <List of Names/optional>: randomly chooses a person for a code review.
 - !tfl : sows current situation of London Tube Lines.
