@@ -14,7 +14,7 @@
     "gulp-watch": "4.3.11",
     "gulp-notify": "3.0.0",
     "typings": "2.1.1",
-    "yargs": "9.0.1",
+    "yargs": "10.0.3",
     "gulp-if": "2.0.2"
   },
   "dependencies": {
