@@ -1,6 +1,6 @@
 
 <p align="center">
-  <a href="https://github.com/SlimDogs/bender-slack-bot"><img src="https://github.com/SlimDogs/bender-slack-bot/blob/master/docs/assets/logo.png?raw=true" alt="Bender - The Slack Bot">
+  <a href="https://github.com/SlimDogs/bender-slack-bot"><img src="https://github.com/SlimDogs/bender-slack-bot/blob/master/docs/assets/logo.png?raw=true" alt="Bender - The Slack Bot" title="Bender - The Slack Bot" height="200px">
   <br>
   <br>
 </p>
