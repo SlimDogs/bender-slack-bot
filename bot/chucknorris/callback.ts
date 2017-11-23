@@ -2,16 +2,16 @@
 
 (() => {
   const http = require('http');
-  
+
   class ChuckNorrisCommands {
     private _callback: Function;
-  
+
     constructor(callback: Function) {
       this._callback = callback;
-  
+
       this.respond();
     }
-  
+
     public respond() {
       const _self = this;
       http.get({
@@ -33,6 +33,6 @@
       });
     }
   }
-  
-  module.exports = ChuckNorrisCommands;  
+
+  module.exports = ChuckNorrisCommands;
 })();

@@ -8,12 +8,12 @@
   
   class JokeCommands {
     private _callback: Function;
-  
+
     constructor(callback: Function) {
       this._callback = callback;
       this.respond();
     }
-  
+
     public respond() {
       const _self = this;
       mongoClient.connect(
@@ -22,15 +22,15 @@
           const collection = db.collection('jokes');
           collection.count({}, {}, function (err, result) {
             const randomJokeId = Math.floor((Math.random() * result) + 1);
-  
+
             collection.find({ id: randomJokeId }).limit(1).toArray(function (err, result) {
-  
+
               _self._callback([{
                 color: global['hexGenerator'](),
                 title: result[0].joke,
                 image_url: `http://benderthebot.herokuapp.com/icons/joke/${Math.floor(Math.random() * 9 + 1)}.png`
               }]);
-  
+
               db.close();
             });
           });

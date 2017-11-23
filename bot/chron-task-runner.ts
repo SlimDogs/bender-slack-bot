@@ -4,7 +4,7 @@
 (() => {
   const https = require('https');
   const users = new (require('./users/callback.js'))();
-  
+
   class ChronTaskRunner {
     get standUpMessages() {
       return [
@@ -15,25 +15,25 @@
         `don't sleep, stand up`
       ];
     }
-  
+
     constructor() {
       setInterval(this.checkChronTaskTimes.bind(this), 60000);
     }
-  
+
     public checkChronTaskTimes() {
       const currentTime = this._getCurrentTime();
-  
+
       if (currentTime.days !== 6 && currentTime.days !== 0) {
         const randomNumber = Math.floor((Math.random() * (this.standUpMessages.length - 1)) + 1);
         const randomMessage = this.standUpMessages[randomNumber];
-  
+
         if (currentTime.hours === 8 && currentTime.minutes === 59) {
           this.postMessage(`*Team 1* ${randomMessage}`);
         } else if (currentTime.hours === 9 && currentTime.minutes === 14) {
           this.postMessage(`*Team 2* ${randomMessage}`);
         } else if (currentTime.hours === 9 && currentTime.minutes === 30) {
           const birthdayUsers = users.getBirthdayUsers(currentTime.days, currentTime.months);
-  
+
           birthdayUsers.forEach(celebrator => {
             this.postMessage(
               `*Heeeeyyy!!!* guess what day today is? It's ${celebrator.name} birthday! @${celebrator.username}, congrats ${(celebrator.gender === 'male ;)' ? 'mate' : 'beautiful :* <3')} !`,
@@ -43,7 +43,7 @@
         }
       }
     }
-  
+
     public postMessage(message = '', image?: string) {
       const req = https.request({
         hostname: 'hooks.slack.com',
@@ -55,11 +55,11 @@
           console.log(`Data received: ${chunk}`);
         });
       });
-  
+
       req.on('error', function (e) {
         console.log(`Error while posting message: ${e.message}`);
       });
-  
+
       req.write(JSON.stringify({
         channel: '#random',
         username: 'Bender',
@@ -68,10 +68,10 @@
       }));
       req.end();
     }
-  
+
     private _getCurrentTime() {
       const d = new Date();
-    
+
       return {
         minutes: d.getMinutes(),
         hours: d.getHours(),
@@ -80,6 +80,6 @@
       };
     }
   }
-  
+
   module.exports = ChronTaskRunner;
 })();

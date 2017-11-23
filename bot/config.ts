@@ -7,6 +7,6 @@
     get DB_USER_PASSWORD() { return process.env.BSB_DB_USER_PASSWORDE; }
     get DB_URL_ADDRESS() { return process.env.BSB_DB_URL_ADDRESS; }
   }
-  
-  module.exports = new Constants();  
+
+  module.exports = new Constants();
 })();

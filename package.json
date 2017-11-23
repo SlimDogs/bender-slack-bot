@@ -1,6 +1,7 @@
 {
   "name": "bender-the-slack-bot",
-  "version": "1.0.1",
+  "author": "Tautvydas Derzinskas",
+  "version": "1.0.2",
   "description": "Slack Bot",
   "main": "app.js",
   "scripts": {
@@ -10,18 +11,19 @@
   },
   "devDependencies": {
     "gulp": "3.9.1",
-    "gulp-typescript": "3.2.2",
+    "gulp-typescript": "3.2.3",
     "gulp-watch": "4.3.11",
     "gulp-notify": "3.0.0",
     "typings": "2.1.1",
-    "yargs": "9.0.1",
+    "yargs": "10.0.3",
     "gulp-if": "2.0.2"
   },
   "dependencies": {
-    "express": "4.16.1",
+    "express": "4.16.2",
     "body-parser": "1.18.2",
-    "mongodb": "2.2.31",
-    "moment-timezone": "0.5.13"
+    "mongodb": "2.2.33",
+    "moment-timezone": "0.5.14",
+    "cz-conventional-changelog": "2.1.0"
   },
   "engines": {
     "node": "0.12.7"
@@ -35,5 +37,10 @@
     "slack",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

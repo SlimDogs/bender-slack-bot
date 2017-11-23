@@ -137,35 +137,35 @@
         }
       }
     ];
-  
+
     getDevs() {
       return this.users.filter(user => user.isDev);
     }
-  
+
     getTesters() {
       return this.users.filter(user => user.isTester);
     }
-  
+
     getCodeReviewer(askerUsername: string) {
       // Getting asker team
       const asker = this.users.filter(user => user.username === askerUsername)[0];
       const askerTeam = asker.team;
-  
+
       // Getting all possible reviewers (same team + devs)
       const possibleReviewers = this.users.filter(user =>
         user.username !== askerUsername && user.isDev && user.team === askerTeam
       );
-  
+
       // Selecting random reviewer
       return possibleReviewers[Math.floor((Math.random() * (possibleReviewers.length - 1)) + 1)];
     }
-  
+
     getBirthdayUsers(day: number = 0, month: number = 0) {
       return this.users.filter(user =>
         user.birthday.day === day && user.birthday.month === month
       );
     }
   }
-  
+
   module.exports = TeamCommands;
 })();

@@ -2,10 +2,10 @@
 
 (() => {
   const moment = require('moment-timezone');
-  
+
   class TimeCommands {
     private _callback: Function;
-  
+
     get months() {
       return [
         'January', 'February', 'March',
@@ -14,13 +14,13 @@
         'October', 'November', 'December'
       ];
     }
-  
+
     constructor(callback: Function) {
       this._callback = callback;
-  
+
       this.respond();
     }
-  
+
     public respond() {
       const londonDate = new Date();
       const lvivDate = moment.tz(londonDate, 'Europe/Kiev');
@@ -42,11 +42,11 @@
           "image_url": 'http://benderthebot.herokuapp.com/icons/time.png'
       }]);
     }
-  
+
     private _padNumber(digit: number) {
       return (digit < 10 ? '0' : '') + digit;
     }
   }
-  
-  module.exports = TimeCommands;  
+
+  module.exports = TimeCommands;
 })();
