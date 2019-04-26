@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "express": "4.16.2",
-    "body-parser": "1.18.2",
+    "body-parser": "1.19.0",
     "mongodb": "3.0.2",
     "moment-timezone": "0.5.14",
     "cz-conventional-changelog": "2.1.0"
